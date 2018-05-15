@@ -10,4 +10,11 @@ object FutureTaskForLatch extends App {
     })
   futureTasks.foreach((f) => new Thread(f).start())
 
+  new Thread(() => {
+    futureTasks.foreach(task => {
+      val result = task.get()
+      println(s"result: ${result}")
+    })
+    println("finish.")
+  }).start()
 }
