@@ -9,5 +9,12 @@ object FutureTaskForLatch extends App {
       i
     })
   futureTasks.foreach((f) => new Thread(f).start())
+  
+  new Thread(() => {
+    for (i <- 1 to 3) {
+      futureTasks(i - 1).get()
+    }
+    println(s"All tasks finished")
+  }).start()
 
 }
