@@ -14,14 +14,16 @@ object QueueWithSemaphore extends App {
   val semaphore = new Semaphore(10)
   for (i <- 1 to 20) {
     val t = new Thread(() => {
-      try {
-        semaphore.acquire()
-        while (!arrayList.isEmpty) {
-          val runnable = arrayList.remove(0)
-          runnable.run()
+      while (!arrayList.isEmpty) {
+        try {
+          semaphore.acquire()
+          if (!arrayList.isEmpty){
+            val runnable = arrayList.remove(0)
+            runnable.run()
+          }
+        } finally {
+          semaphore.release()
         }
-      } finally {
-        semaphore.release()
       }
     })
     t.start()
