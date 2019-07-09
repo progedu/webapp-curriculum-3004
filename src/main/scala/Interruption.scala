@@ -1,10 +1,15 @@
 object Interruption extends App {
 
-  new Thread(() => {
-    while (true) {
-      println("Sleeping...")
-      Thread.sleep(1000)
+  val th = new Thread(() => {
+    try {
+      while (true) {
+        println("Sleeping...")
+        Thread.sleep(1000)
+      }
+    }catch {
+      case _ : InterruptedException =>
     }
-  }).start()
-
+  })
+  th.start()
+  th.interrupt()
 }
