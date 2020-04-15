@@ -10,4 +10,6 @@ object FutureTaskForLatch extends App {
     })
   futureTasks.foreach((f) => new Thread(f).start())
 
+  futureTasks.foreach((f) => f.get())
+
 }
