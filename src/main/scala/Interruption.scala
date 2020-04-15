@@ -7,4 +7,7 @@ object Interruption extends App {
     }
   }).start()
 
+  Thread.sleep(2400)
+  System.exit(0)
+
 }
