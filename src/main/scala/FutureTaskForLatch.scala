@@ -10,4 +10,9 @@ object FutureTaskForLatch extends App {
     })
   futureTasks.foreach((f) => new Thread(f).start())
 
+  val latch = new Thread(() => {
+    futureTasks.foreach(_.get())
+    println(s"Pseudo latch run")
+  }).start()
+
 }
